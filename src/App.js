@@ -1,7 +1,8 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useState } from "react";   // ✅ missing import
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -11,12 +12,14 @@ function App() {
       <Routes>
         <Route
           path="/login"
-          element={<Login onLogin={(u) => setUser(u)} />}
+          element={<Login />}
         />
         <Route
           path="/dashboard"
           element={
-            user ? <Dashboard /> : <Navigate to="/login" replace />
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
           }
         />
       </Routes>
