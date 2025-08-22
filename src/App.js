@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import AdminDashboard from "./pages/AdminDashboard";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
+import TeacherList from "./components/TeacherList";
 
 function App() {
   return (
@@ -49,7 +50,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/teachers"
+          element={
+            <ProtectedRoute allowedRoles={["super_admin"]}>
+              <TeacherList />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
+
     </Router>
   );
 }
