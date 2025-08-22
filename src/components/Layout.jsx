@@ -2,11 +2,13 @@ import { useNavigate } from "react-router-dom";
 
 function Layout({ children }) {
   const navigate = useNavigate();
-  const role = localStorage.getItem("role"); // store this at login
+  const role = localStorage.getItem("role");
+  const name = localStorage.getItem("name");
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
+    localStorage.removeItem("name")
     navigate("/login");
   };
 
@@ -41,52 +43,40 @@ function Layout({ children }) {
   const menu = getMenu();
 
   return (
-    <div style={{ display: "flex", height: "100vh" }}>
+    <div className="flex min-h-screen bg-gray-100">
       {/* Sidebar */}
-      <div
-        style={{
-          width: "220px",
-          background: "#2c3e50",
-          color: "#ecf0f1",
-          padding: "20px",
-        }}
-      >
-        <h2>School App</h2>
-        <ul style={{ listStyle: "none", padding: 0 }}>
-          {menu.map((item) => (
-            <li key={item.path}>
-              <a href={item.path} style={{ color: "white" }}>
-                {item.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <aside className="w-64 bg-gray-800 text-white flex-shrink-0 p-6">
+        <h2 className="text-2xl font-bold mb-6">School App</h2>
+        <nav>
+          <ul className="space-y-2">
+            {menu.map((item) => (
+              <li key={item.path}>
+                <a href={item.path} style={{ color: "white" }}>
+                  {item.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
 
       {/* Main Content */}
-      <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-        {/* Topbar */}
-        <div
-          style={{
-            height: "60px",
-            background: "#34495e",
-            color: "white",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            padding: "0 20px",
-          }}
-        >
-          <button onClick={handleLogout} style={{ padding: "6px 12px" }}>
+      <main className="flex-1 flex flex-col">
+        <div className="h-16 bg-white shadow-md flex items-center justify-between p-4 flex-shrink-0">
+          <span className="font-semibold text-gray-800">Welcome, {name}!</span>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+          >
             Logout
           </button>
         </div>
 
         {/* Page Content */}
-        <div style={{ flex: 1, padding: "20px" }}>
+        <div className="p-6 overflow-y-auto flex-1">
           {children}
         </div>
-      </div>
+      </main>
     </div>
   );
 }
