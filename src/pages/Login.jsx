@@ -44,6 +44,7 @@ function Login({ onLogin }) {
     <div style={{ maxWidth: "400px", margin: "50px auto" }}>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
+        
         <input
           type="email"
           placeholder="Email"
