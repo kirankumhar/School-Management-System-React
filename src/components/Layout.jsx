@@ -16,7 +16,7 @@ function Layout({ children }) {
   const getMenu = () => {
     if (role === "super_admin") {
       return [
-        { name: "Dashboard", path: "/dashboard" },
+        { name: "Dashboard", path: "/admin/dashboard" },
         { name: "Manage Teachers", path: "/teachers" },
         { name: "Manage Students", path: "/students" },
         { name: "Settings", path: "/settings" },
