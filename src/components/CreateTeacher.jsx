@@ -6,6 +6,7 @@ function CreateTeacher({ onSuccess }) {
   const [errors, setErrors] = useState({});
   const [success, setSuccess] = useState("");
   const [generalError, setGeneralError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -14,6 +15,7 @@ function CreateTeacher({ onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const formData = new FormData();
     formData.append("name", form.name);
@@ -41,6 +43,8 @@ function CreateTeacher({ onSuccess }) {
       }else{
         setGeneralError("⚠️ Something went wrong. Please try again.");
       }
+    }finally{
+      setLoading(false);
     }
   };
 
@@ -114,11 +118,40 @@ function CreateTeacher({ onSuccess }) {
       />
       {errors.profile_picture && <p className="text-red-500 text-sm">{errors.profile_picture[0]}</p>}
 
-      <button 
-        type="submit" 
-        className="text-white bg-blue-700 hover:bg-blue-800 rounded-lg text-sm px-5 py-2.5"
+      <button
+        type="submit"
+        disabled={loading} // 👈 disable while loading
+        className={`text-white rounded-lg text-sm px-5 py-2.5 ${
+          loading ? "bg-gray-400 cursor-not-allowed" : "bg-blue-700 hover:bg-blue-800"
+        }`}
       >
-        Create
+        {loading ? (
+          <span className="flex items-center gap-2">
+            <svg
+              className="animate-spin h-4 w-4 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              ></circle>
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8v4l3-3-3-3v4a8 8 0 00-8 8h4z"
+              ></path>
+            </svg>
+            Creating...
+          </span>
+        ) : (
+          "Create"
+        )}
       </button>
     </form>
   );
