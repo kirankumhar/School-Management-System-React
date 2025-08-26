@@ -70,6 +70,7 @@ function TeacherList() {
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
+                        <th></th>
                         <th scope="col" className="px-6 py-3">
                             Teacher name
                         </th>
@@ -90,6 +91,17 @@ function TeacherList() {
                 <tbody>
                   {teachers.map((teacher) => (
                       <tr key={teacher.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                        <td className="px-6 py-4">
+                          {teacher.profile_picture ? (
+                            <img
+                                src={`http://127.0.0.1:8000/storage/${teacher.profile_picture}`}
+                                alt="Profile"
+                                className="w-16 h-16 rounded-full"
+                              />
+                          ) : (
+                            <span>No Image</span>
+                          )}
+                        </td>
                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {teacher.name}
                         </th>

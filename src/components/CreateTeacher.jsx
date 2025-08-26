@@ -1,4 +1,4 @@
-import axios from "../axios";
+import api from "../axios";
 import { useState } from "react";
 
 function CreateTeacher({ onSuccess }) {
@@ -10,15 +10,28 @@ function CreateTeacher({ onSuccess }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("name", form.name);
+    formData.append("email", form.email);
+    formData.append("subject", form.subject);
+    formData.append("phone", form.phone);
+    if (form.profile_picture) {
+      formData.append("profile_picture", form.profile_picture);
+    }
+
     try {
-      await axios.post("/teachers", form);   // ✅ use `form` not `formData`
-      alert("Teacher created successfully!");
-      if (onSuccess) onSuccess(); // refresh list after create
-      setForm({ name: "", email: "", subject: "", phone: "" }); // reset form
+      await api.post("/teachers", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      alert("Teacher created successfully");
+      onSuccess();
     } catch (error) {
-      console.error("Error creating teacher:", error.response?.data || error);
+      console.error("Validation Errors:", error.response.data);
+      alert("Error: " + JSON.stringify(error.response.data.errors));
     }
   };
+
 
   return (
     <form className="max-w-md mx-auto mb-6" onSubmit={handleSubmit}>
@@ -65,6 +78,14 @@ function CreateTeacher({ onSuccess }) {
           className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg block w-full p-2.5"
         />
       </div>
+
+      <input
+        type="file"
+        name="profile_picture"
+        accept="image/*"
+        onChange={(e) => setForm({ ...form, profile_picture: e.target.files[0] })}
+      />
+
 
       <button 
         type="submit" 
