@@ -8,6 +8,8 @@ import TeacherDashboard from "./pages/TeacherDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
 import TeacherList from "./components/TeacherList";
 import TeacherDetail from "./components/Teacherdetail";
+import StudentList from "./components/StudentList";
+import AddStudent from "./components/AddStudent";
 
 function App() {
   return (
@@ -65,6 +67,24 @@ function App() {
             <TeacherDetail />
           }
           />
+
+          <Route
+            path="/Students"
+            element={
+              <ProtectedRoute allowedRoles={["super_admin"]}>
+                <StudentList />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+          path="/students/create"
+          element={
+            <ProtectedRoute allowedRoles={["super_admin"]}>
+              <AddStudent />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
 
     </Router>
