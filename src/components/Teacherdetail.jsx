@@ -33,13 +33,13 @@ function TeacherDetail (){
     const handleDelete = async () => {
         if (!window.confirm("Are you sure you want to delete this teacher?")) return;
         try {
-        await api.delete(`/teachers/${id}`, {
-            headers: {
-            Authorization: `Bearer ${token}`,
-            },
-        });
-        alert("Teacher deleted successfully!");
-        navigate("/teachers"); // go back to list
+            await api.delete(`/teachers/${id}`, {
+                headers: {
+                Authorization: `Bearer ${token}`,
+                },
+            });
+            alert("Teacher deleted successfully!");
+            navigate("/teachers"); // go back to list
         } catch (error) {
         console.error("Error deleting teacher:", error);
         }
@@ -55,17 +55,17 @@ function TeacherDetail (){
     return(
         <Layout>
             <div className="p-4">
-                <h2 className="text-xl font-bold mb-4">Teacher Details</h2>
+                <h2 className="mb-4 text-xl font-bold">Teacher Details</h2>
 
                 {!editing ? (
-                <div className="border p-4 rounded shadow flex flex-col items-center">
+                <div className="flex flex-col items-center p-4 border rounded shadow">
                     {/* Display the image if it exists */}
                     {teacher.profile_picture && (
                         <div className="mb-4">
                             <img 
                                 src={`${BASE_URL}${teacher.profile_picture}`} 
                                 alt={`Profile picture of ${teacher.name}`} 
-                                className="w-32 h-32 object-cover rounded-full border-2 border-gray-300" 
+                                className="object-cover w-32 h-32 border-2 border-gray-300 rounded-full" 
                             />
                         </div>
                     )}
@@ -77,22 +77,22 @@ function TeacherDetail (){
                         <p className="text-gray-700"><strong>Phone:</strong> {teacher.phone}</p>
                     </div>
 
-                    <div className="mt-4 flex gap-3">
+                    <div className="flex gap-3 mt-4">
                         <button
                             onClick={() => setEditing(true)}
-                            className="bg-blue-600 text-white px-4 py-2 rounded"
+                            className="px-4 py-2 text-white bg-blue-600 rounded"
                         >
                             Edit
                         </button>
                         <button
                             onClick={handleDelete}
-                            className="bg-red-600 text-white px-4 py-2 rounded"
+                            className="px-4 py-2 text-white bg-red-600 rounded"
                         >
                             Delete
                         </button>
                         <button
                             onClick={() => navigate("/teachers")}
-                            className="bg-gray-500 text-white px-4 py-2 rounded"
+                            className="px-4 py-2 text-white bg-gray-500 rounded"
                         >
                             Back
                         </button>
