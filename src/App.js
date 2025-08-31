@@ -13,6 +13,7 @@ import StudentList from "./components/StudentList";
 import EditStudent from "./components/EditStudent";
 import AddStudent from "./components/AddStudent";
 import AddSchoolClass from "./components/AddSchoolClass";
+import AddTeacher from "./components/AddTeacher";
 
 
 function App() {
@@ -62,6 +63,14 @@ function App() {
           element={
             <ProtectedRoute allowedRoles={["super_admin"]}>
               <TeacherList />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/teachers/create"
+          element={
+            <ProtectedRoute allowedRoles={["super_admin"]}>
+              <AddTeacher />
             </ProtectedRoute>
           }
         />
