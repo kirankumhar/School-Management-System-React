@@ -30,6 +30,7 @@ function Layout({ children }) {
         { name: "Dashboard", path: "/admin/dashboard", icon: HomeIcon },
         { name: "Manage Teachers", path: "/teachers", icon: AcademicCapIcon },
         { name: "Manage Students", path: "/students", icon: UserGroupIcon },
+        { name: "Manage Classes", path: "/school-classes", icon: BookOpenIcon },
         { name: "Settings", path: "/settings", icon: Cog6ToothIcon },
       ];
     } else if (role === "teacher") {

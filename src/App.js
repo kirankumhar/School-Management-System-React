@@ -1,17 +1,19 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import SchoolClassList from "./components/SchoolClassList";
 import ProtectedRoute from "./components/ProtectedRoute";
-
-import AdminDashboard from "./pages/AdminDashboard";
+import StudentDetails from "./components/StudentDetails";
 import TeacherDashboard from "./pages/TeacherDashboard";
 import StudentDashboard from "./pages/StudentDashboard";
-import TeacherList from "./components/TeacherList";
 import TeacherDetail from "./components/Teacherdetail";
+import AdminDashboard from "./pages/AdminDashboard";
+import TeacherList from "./components/TeacherList";
 import StudentList from "./components/StudentList";
-import AddStudent from "./components/AddStudent";
-import StudentDetails from "./components/StudentDetails";
 import EditStudent from "./components/EditStudent";
+import AddStudent from "./components/AddStudent";
+import AddSchoolClass from "./components/AddSchoolClass";
+
 
 function App() {
   return (
@@ -102,6 +104,24 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={["super_admin"]}>
                 <EditStudent></EditStudent>
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/school-classes"
+            element={
+              <ProtectedRoute allowedRoles={["super_admin"]}>
+                <SchoolClassList />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/school-classes/created"
+            element={
+              <ProtectedRoute allowedRoles={["super_admin"]}>
+                <AddSchoolClass />
               </ProtectedRoute>
             }
           />
