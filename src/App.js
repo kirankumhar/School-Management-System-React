@@ -14,6 +14,7 @@ import EditStudent from "./components/EditStudent";
 import AddStudent from "./components/AddStudent";
 import AddSchoolClass from "./components/AddSchoolClass";
 import AddTeacher from "./components/AddTeacher";
+import EditTeacher from"./components/EditTeacher";
 
 
 function App() {
@@ -79,6 +80,15 @@ function App() {
           element={
             <TeacherDetail />
           }
+          />
+
+          <Route 
+            path="teachers/:id/edit"
+            element={
+              <ProtectedRoute allowedRoles={["super_admin"]}>
+                <EditTeacher />
+              </ProtectedRoute>
+            }
           />
 
           <Route

@@ -80,7 +80,11 @@ function TeacherList() {
                       {teacher.phone}
                   </td>
                   <td className="px-6 py-4">
-                      <button className="mr-3 font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button>
+                    <Link to={`/teachers/${teacher.id}/edit`}
+                    className="mr-3 text-blue-600 hover:underline">
+                      Edit
+                    </Link>
+                      
                       <button onClick={() => handleDelete(teacher.id)} className="px-3 py-1 mr-3 text-white bg-red-600 rounded">Delete</button>
                       <Link to={`/teachers/${teacher.id}`}
                       className="px-3 py-1 text-white bg-green-600 rounded">View</Link>
