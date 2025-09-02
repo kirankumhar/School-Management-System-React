@@ -9,7 +9,7 @@ const EditTeacher = () => {
     email: '',
     phone: '',
     subject: '',
-    profile_image: '',
+    profile_picture: '',
   });
 
   const [currentImage, setCurrentImage] = useState('');
@@ -29,11 +29,11 @@ const EditTeacher = () => {
             email: teacher.email || '',
             phone: teacher.phone || '',
             subject: teacher.subject || '',
-            profile_image: null,
+            profile_picture: null,
         });
         
-        if (teacher.profile_image) {
-          setCurrentImage(`http://127.0.0.1:8000/storage/${teacher.profile_image}`);
+        if (teacher.profile_picture) {
+          setCurrentImage(`http://127.0.0.1:8000/storage/${teacher.profile_picture}`);
         }
       } catch (error) {
         console.error('Error fetching teacher:', error);
@@ -46,8 +46,8 @@ const EditTeacher = () => {
   }, [id]);
 
   const handleChange = (e) => {
-      if (e.target.name === 'profile_image') {
-          setFormData({ ...formData, profile_image: e.target.files[0] });
+      if (e.target.name === 'profile_picture') {
+          setFormData({ ...formData, profile_picture: e.target.files[0] });
       } else {
           setFormData({ ...formData, [e.target.name]: e.target.value });
       }
@@ -108,10 +108,10 @@ const EditTeacher = () => {
                         {error}
                     </div>
                     <button 
-                        onClick={() => navigate('/students')}
+                        onClick={() => navigate('/teachers')}
                         className="px-4 py-2 mt-4 text-white bg-gray-500 rounded hover:bg-gray-600"
                     >
-                        Back to Students
+                        Back to teachers
                     </button>
                 </div>
             </Layout>
@@ -137,8 +137,101 @@ const EditTeacher = () => {
               </div>
           )}
 
-          <form className="p-6 bg-white rounded">
-            
+          <form onSubmit={handleSubmit} className="p-6 bg-white rounded">
+            <div className="">
+              <label className="block mb-2 font-medium">Name *</label>
+              <input 
+                type="text" 
+                name="name" 
+                value={formData.name} 
+                onChange={handleChange} 
+                required 
+                className="w-full p-2 border rounded" 
+              />
+              <div>
+                  <label className="block mb-2 font-medium">Email *</label>
+                  <input 
+                      type="email" 
+                      name="email" 
+                      value={formData.email} 
+                      onChange={handleChange} 
+                      required 
+                      className="w-full p-2 border rounded" 
+                  />
+              </div>
+              
+              <div>
+                  <label className="block mb-2 font-medium">Phone</label>
+                  <input 
+                      type="text" 
+                      name="phone" 
+                      value={formData.phone} 
+                      onChange={handleChange} 
+                      className="w-full p-2 border rounded" 
+                  />
+              </div>
+              
+              <div>
+                  <label className="block mb-2 font-medium">Subject *</label>
+                  <input 
+                      type="text" 
+                      name="subject" 
+                      value={formData.subject} 
+                      onChange={handleChange} 
+                      required 
+                      className="w-full p-2 border rounded" 
+                  />
+              </div>
+              <div className="mb-6">
+                  <label className="block mb-2 font-medium">Profile Image</label>
+                  
+                  {currentImage && (
+                      <div className="mb-3">
+                          <p className="mb-2">Current Image:</p>
+                          <img 
+                              src={currentImage} 
+                              alt="Current profile" 
+                              className="object-cover w-24 h-24 mb-2 rounded-full"
+                          />
+                          <button 
+                              type="button"
+                              onClick={removeProfileImage}
+                              className="px-3 py-1 text-sm text-white bg-red-500 rounded"
+                          >
+                              Remove Image
+                          </button>
+                      </div>
+                  )}
+                  
+                  <input 
+                      type="file" 
+                      name="profile_picture" 
+                      onChange={handleChange} 
+                      className="w-full p-2 border rounded" 
+                      accept="image/*"
+                  />
+                  <p className="mt-1 text-sm text-gray-500">
+                      Select a new image to replace the current one
+                  </p>
+
+                  <div className="flex gap-4">
+                    <button
+                      type="submit"
+                      className="px-6 py-2 text-white bg-blue-500 rounded hover:bg-blue-600">
+                      Update Teacher
+                    </button>
+                    
+                    <button 
+                            type="button"
+                            onClick={() => navigate('/teachers')}
+                            className="px-6 py-2 text-white bg-gray-500 rounded hover:bg-gray-600"
+                        >
+                            Cancel
+                        </button>
+                  </div>
+                  
+              </div>
+            </div>
           </form>
         </div>
       </Layout>

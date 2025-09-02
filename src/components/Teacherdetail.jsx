@@ -303,24 +303,28 @@ function TeacherDetail() {
 
               {/* Action Buttons */}
               <div className="flex pt-6 mt-8 space-x-4 border-t">
-                <button
-                  onClick={() => setEditing(true)}
-                  className="px-6 py-2 text-white transition-colors bg-blue-500 rounded hover:bg-blue-600"
-                >
-                  Edit Teacher
-                </button>
-                <button
-                  onClick={handleDelete}
-                  className="px-6 py-2 text-white transition-colors bg-red-500 rounded hover:bg-red-600"
-                >
-                  Delete Teacher
-                </button>
-                <button
-                  onClick={() => navigate("/teachers")}
-                  className="px-6 py-2 text-white transition-colors bg-gray-500 rounded hover:bg-gray-600"
-                >
-                  Back to List
-                </button>
+                <h3 className="mb-3 text-lg font-semibold">Quick Actions</h3>
+                <div className="flex space-x-3">
+                  <Link
+                    to={`/teachers/${id}/edit`}
+                    className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                  >
+                    Edit Profile
+                  </Link>
+                    
+                  <button
+                    onClick={handleDelete}
+                    className="px-6 py-2 text-white transition-colors bg-red-500 rounded hover:bg-red-600"
+                  >
+                    Delete Teacher
+                  </button>
+                  <button
+                    onClick={() => navigate("/teachers")}
+                    className="px-6 py-2 text-white transition-colors bg-gray-500 rounded hover:bg-gray-600"
+                  >
+                    Back to List
+                  </button>
+                  </div>
               </div>
             </div>
           </div>
