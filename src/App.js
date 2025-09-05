@@ -15,6 +15,8 @@ import AddStudent from "./components/AddStudent";
 import AddSchoolClass from "./components/AddSchoolClass";
 import AddTeacher from "./components/AddTeacher";
 import EditTeacher from"./components/EditTeacher";
+import SchoolClassDetail from "./components/SchoolClassDetail";
+import EditSchoolClass from "./components/EditSchoolClass";
 
 
 function App() {
@@ -143,6 +145,24 @@ function App() {
                 <AddSchoolClass />
               </ProtectedRoute>
             }
+          />
+
+          <Route 
+          path="/school-classes/:id"
+          element = {
+            <ProtectedRoute allowedRoles={["super_admin"]}>
+              <SchoolClassDetail />
+            </ProtectedRoute>
+          }
+          />
+
+          <Route
+          path="/School-classes/:id/edit"
+          element = {
+            <ProtectedRoute allowedRoles={["super_admin"]}>
+              <EditSchoolClass />
+            </ProtectedRoute>
+          }
           />
 
       </Routes>
